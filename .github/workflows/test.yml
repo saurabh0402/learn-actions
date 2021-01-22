@@ -23,9 +23,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - if: env.DEPLOY_TO_DEV
+      - if: env.DEPLOY_TO_DEV == 'true'
         run: echo "Label - latest found. Hurray!"
-      - if: env.DEPLOY_TO_TEST
+      - if: env.DEPLOY_TO_TEST == 'true'
         run: echo "Label - test found. Hurray!"
       - run: yarn install
       - run: yarn test
