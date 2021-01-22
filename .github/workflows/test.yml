@@ -1,31 +1,17 @@
 name: test
 on:
-  pull_request:
+  push:
     branches:
-      - master
-    types:
-      - synchronize
-      - labeled
-      - opened
+      - "master"
 jobs:
   test:
-    if: |
-      contains(github.event.pull_request.labels.*.name, 'latest') ||
-      contains(github.event.pull_request.labels.*.name, 'test')
-    env:
-      DEPLOY_TO_DEV: ${{ contains(github.event.pull_request.labels.*.name, 'latest') }}
-      DEPLOY_TO_TEST: ${{ contains(github.event.pull_request.labels.*.name, 'test') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to Repo
         uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - if: env.DEPLOY_TO_DEV == 'true'
-        run: echo "Label - latest found. Hurray!"
-      - if: env.DEPLOY_TO_TEST == 'true'
-        run: echo "Label - test found. Hurray!"
-      - run: yarn install
-      - run: yarn test
+      - name: Build Image
+        run: |
+          docker build . -t hello-world
+      - name: Check Images
+        run: |
+          docker images
