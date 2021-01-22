@@ -1,3 +1,4 @@
+# This workflow assigns two environment variable that can later be used in any step
 name: test
 on:
   pull_request:
@@ -9,9 +10,6 @@ on:
       - opened
 jobs:
   test:
-    if: |
-      contains(github.event.pull_request.labels.*.name, 'latest') ||
-      contains(github.event.pull_request.labels.*.name, 'test')
     env:
       DEPLOY_TO_DEV: ${{ contains(github.event.pull_request.labels.*.name, 'latest') }}
       DEPLOY_TO_TEST: ${{ contains(github.event.pull_request.labels.*.name, 'test') }}
@@ -23,9 +21,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - if: env.DEPLOY_TO_DEV == 'true'
-        run: echo "Label - latest found. Hurray!"
-      - if: env.DEPLOY_TO_TEST == 'true'
-        run: echo "Label - test found. Hurray!"
+      - run: echo $DEPLOY_TO_DEV
+      - run: echo $DEPLOY_TO_TEST
       - run: yarn install
       - run: yarn test
