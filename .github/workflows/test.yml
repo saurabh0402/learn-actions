@@ -10,8 +10,8 @@ on:
 jobs:
   test:
     env:
-      DEPLOY_TO_DEV: ${{ contains(github.event.pull_request.labels.*.name, "latest") }}
-      DEPLOY_TO_TEST: ${{ contains(github.event.pull_request.labels.*.name, "test") }}
+      DEPLOY_TO_DEV: ${{ contains(github.event.pull_request.labels.*.name, 'latest') }}
+      DEPLOY_TO_TEST: ${{ contains(github.event.pull_request.labels.*.name, 'test') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to Repo
