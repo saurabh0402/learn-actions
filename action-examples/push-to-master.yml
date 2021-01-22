@@ -1,8 +1,10 @@
+# This workflow runs whenever there's a push to master
+
 name: test
 on:
-  pull_request:
+  push:
     branches:
-      - master
+      - "master"
 jobs:
   test:
     runs-on: ubuntu-latest
