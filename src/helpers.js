@@ -1,9 +1,12 @@
-function sum(...nums) {
-  return nums.reduce((sum, val) => {
-    return sum + val;
-  }, 0);
+function actionPerformer(f, initial) {
+  return function (...nums) {
+    return nums.reduce((tot, val) => {
+      return f(tot, val);
+    }, initial);
+  };
 }
 
 module.exports = {
-  sum,
+  sum: actionPerformer((a, b) => a + b, 0),
+  mul: actionPerformer((a, b) => a * b, 1),
 };
