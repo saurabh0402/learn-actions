@@ -1,17 +1,11 @@
+# This workflow runs whenever a PR is created or commits are pushed to it
 name: test
 on:
   pull_request:
     branches:
       - master
-    types:
-      - synchronize
-      - labeled
-      - opened
 jobs:
   test:
-    env:
-      DEPLOY_TO_DEV: contains(github.event.pull_request.labels.*.name, "latest")
-      DEPLOY_TO_TEST: contains(github.event.pull_request.labels.*.name, "test")
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to Repo
@@ -20,7 +14,5 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - run: echo $DEPLOY_TO_DEV
-      - run: echo $DEPLOY_TO_TEST
       - run: yarn install
       - run: yarn test
