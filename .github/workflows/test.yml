@@ -9,9 +9,11 @@ jobs:
     steps:
       - name: Checkout to Repo
         uses: actions/checkout@v2
-      - name: Build Image
+      - name: Set Output
+        id: set_output
         run: |
-          docker build . -t hello-world
-      - name: Check Images
+          NEW_VAR="hello world"
+          echo "::set-output name=var::$NEW_VAR"
+      - name: Use output
         run: |
-          docker images
+          echo ${{ steps.set_output.outputs.var }}
