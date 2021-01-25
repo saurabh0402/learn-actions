@@ -1,4 +1,4 @@
-const { sum, mul } = require('./helpers');
+const { sum, mul, subLeft } = require('./helpers');
 
 test('Basic two number sum', () => {
   expect(sum(1, 2)).toBe(3);
@@ -22,4 +22,11 @@ test('X Numbers product', () => {
   expect(mul(1, 2)).toBe(2);
   expect(mul(1, 2, 3)).toBe(1 * 2 * 3);
   expect(mul(1, 2, 3, 4, 5, 6)).toBe(1 * 2 * 3 * 4 * 5 * 6);
+});
+
+test('Basic two number different', () => {
+  expect(subLeft(5, 3)).toBe(2);
+  expect(subLeft(100, 39)).toBe(61);
+  expect(subLeft(50, 35)).toBe(15);
+  expect(subLeft()).toBe(0);
 });
