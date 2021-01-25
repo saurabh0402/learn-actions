@@ -1,0 +1,19 @@
+name: test
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to Repo
+        uses: actions/checkout@v2
+      - name: Set Output
+        id: set_output
+        run: |
+          NEW_VAR="hello world"
+          echo "::set-output name=var::$NEW_VAR"
+      - name: Use output
+        run: |
+          echo ${{ steps.set_output.outputs.var }}

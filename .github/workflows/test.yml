@@ -1,19 +1,20 @@
 name: test
 on:
-  push:
-    branches:
-      - "master"
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Stage'
+        required: true
+        default: 'dev'
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      STAGE: ${{ github.event.inputs.stage }}
     steps:
       - name: Checkout to Repo
         uses: actions/checkout@v2
       - name: Set Output
         id: set_output
         run: |
-          NEW_VAR="hello world"
-          echo "::set-output name=var::$NEW_VAR"
-      - name: Use output
-        run: |
-          echo ${{ steps.set_output.outputs.var }}
+          echo $STAGE
