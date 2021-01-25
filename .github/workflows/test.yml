@@ -14,7 +14,11 @@ jobs:
     steps:
       - name: Checkout to Repo
         uses: actions/checkout@v2
-      - name: Set Output
+      - name: Echo Output
         id: set_output
         run: |
           echo $STAGE
+      - name: Done
+        run: |
+          echo Done!
+      
