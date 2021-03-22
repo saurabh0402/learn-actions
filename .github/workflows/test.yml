@@ -29,6 +29,8 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          fields: repo,commit,author,eventName,workflow,message
+          fields: commit,author,eventName,workflow,message
+          icon_emoji: "${{ job.status == 'success' && ':partydeploy:' || ':warning:' }}"
+          text: '*service-connection-proxy-latest* : ${{ process.env.AS_WORKFLOW }} was ${{ job.status }}'
         env:
           SLACK_WEBHOOK_URL: https://webhook.site/251ce8c6-8160-462c-8c88-6a85e58bf13e
