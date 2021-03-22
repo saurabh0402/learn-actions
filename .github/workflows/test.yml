@@ -24,3 +24,11 @@ jobs:
           node-version: 14
       - run: yarn install
       - run: yarn test
+      - name: Notify on Slack
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,commit,author,eventName,workflow,message
+        env:
+          SLACK_WEBHOOK_URL: https://webhook.site/251ce8c6-8160-462c-8c88-6a85e58bf13e
