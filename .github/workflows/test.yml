@@ -30,6 +30,6 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: commit,author,message
-          text: "${{ job.status == 'success' && :partydeploy: || :warning: }} *service-connection-proxy-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}"
+          text: "${{ job.status == 'success' && ':partydeploy:' || ':warning:' }} *service-connection-proxy-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}"
         env:
           SLACK_WEBHOOK_URL: https://webhook.site/251ce8c6-8160-462c-8c88-6a85e58bf13e
