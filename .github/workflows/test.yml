@@ -34,7 +34,7 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : 'danger',
-                text: '${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:' + ' *service-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}',
+                text: ('${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:') + ' *service-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}',
                 fields:[{
                   title: "GitHub Commit",
                   value: process.env.AS_MESSAGE,
