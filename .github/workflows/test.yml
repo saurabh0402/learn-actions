@@ -28,8 +28,26 @@ jobs:
         if: always()
         uses: 8398a7/action-slack@v3
         with:
-          status: ${{ job.status }}
-          fields: commit,author,message
-          text: "${{ job.status == 'success' && ':partydeploy:' || ':warning:' }} *service-connection-proxy-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}"
+          status: custom
+          fields: author,message
+          custom_payload: |
+            {
+              attachments: [{
+                color: '${{ job.status }}' === 'success' ? 'good' : 'danger',
+                text: '${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:' + ' *service-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}',
+                fields:[{
+                  title: "GitHub Commit",
+                  value: process.env.AS_MESSAGE,
+                }, {
+                  title: "Author",
+                  value: process.env.AS_AUTHOR,
+                  short: true,
+                }, {
+                  title: "Branch",
+                  value: process.env.GITHUB_REF.split('/').pop(),
+                  short: true,
+                }]
+              }]
+            }
         env:
           SLACK_WEBHOOK_URL: https://webhook.site/251ce8c6-8160-462c-8c88-6a85e58bf13e
