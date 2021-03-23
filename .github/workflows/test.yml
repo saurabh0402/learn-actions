@@ -36,7 +36,7 @@ jobs:
                 color: '${{ job.status }}' === 'success' ? 'good' : 'danger',
                 text: ('${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:') +
                   ' *service-${{ env.STAGE }}* : Service Deployment ' +
-                  ('${{ job.status }}'' === 'success' ? 'was Successful.' : '${{ job.status }}' === 'cancelled' ? 'was Cancelled.' : 'has Failed.'),
+                  ('${{ job.status }}' === 'success' ? 'was Successful.' : '${{ job.status }}' === 'cancelled' ? 'was Cancelled.' : 'has Failed.'),
                 fields:[{
                   title: "Commit Message",
                   value: process.env.AS_MESSAGE,
