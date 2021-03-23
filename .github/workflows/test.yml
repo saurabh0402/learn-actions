@@ -34,18 +34,23 @@ jobs:
             {
               attachments: [{
                 color: '${{ job.status }}' === 'success' ? 'good' : 'danger',
-                text: ('${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:') + ' *service-${{ env.STAGE }}* : ${{ github.workflow }} was ${{ job.status }}',
+                text: ('${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:') +
+                  ' *service-${{ env.STAGE }}* : Service Deployment ' +
+                  ('${{ job.status }}'' === 'success' ? 'was Successful.' : '${{ job.status }}' === 'cancelled' ? 'was Cancelled.' : 'has Failed.'),
                 fields:[{
-                  title: "GitHub Commit",
+                  title: "Commit Message",
                   value: process.env.AS_MESSAGE,
+                }, {
+                  title: "Branch",
+                  value: process.env.GITHUB_REF.split('/').slice(2).join('/'),
+                  short: true,
+                }, {
+                  title: "Action",
+                  value: process.env.AS_WORKFLOW,
+                  short: true,
                 }, {
                   title: "Author",
                   value: process.env.AS_AUTHOR,
-                  short: true,
-                }, {
-                  title: "Branch",
-                  value: process.env.GITHUB_REF,
-                  short: true,
                 }]
               }]
             }
