@@ -44,7 +44,7 @@ jobs:
                   short: true,
                 }, {
                   title: "Branch",
-                  value: process.env.GITHUB_REF.split('/').pop(),
+                  value: process.env.GITHUB_REF,
                   short: true,
                 }]
               }]
