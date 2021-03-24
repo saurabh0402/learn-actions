@@ -34,7 +34,7 @@ jobs:
             {
               "attachments": [
                 {
-                  "color": '${{ job.status }}' === 'success' ? 'good' : 'danger',
+                  "color": '${{ job.status }}' === 'success' ? '#007a5a' : '#e01e5a',
                   "blocks": [
                     {
                       "type": "section",
@@ -47,15 +47,15 @@ jobs:
                       "fields": [
                         {
                           "type": "mrkdwn",
-                          "text": `Commit Message\n${process.env.AS_MESSAGE}`
+                          "text": `*Commit Message*\n${process.env.AS_MESSAGE}`
                         },
                         {
                           "type": "mrkdwn",
-                          "text": `Branch\n${process.env.AS_AUTHOR}`,
+                          "text": `*Branch*\n${process.env.GITHUB_REF.split('/').slice(2).join('/')}`,
                         },
                         {
                           "type": "mrkdwn",
-                          "text": "Author\n${process.env.AS_AUTHOR}"
+                          "text": `*Author*\n${process.env.AS_AUTHOR}`
                         }
                       ]
                     },
@@ -72,6 +72,7 @@ jobs:
                             "text": "Check Deployment Logs",
                             "emoji": true
                           },
+                          "style": '${{ job.status }}' === 'success' ? 'primary' : 'danger',
                           "value": "click_me_123",
                           "url": `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
                         }
