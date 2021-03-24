@@ -51,6 +51,12 @@ jobs:
                 }, {
                   title: "Author",
                   value: process.env.AS_AUTHOR,
+                }],
+                "actions": [{
+                  "text": "Check Deployment Logs",
+                  "type": "button",
+                  "style": "danger",
+                  "url": process.env.AS_WORKFLOW
                 }]
               }]
             }
