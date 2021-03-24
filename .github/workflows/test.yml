@@ -41,14 +41,17 @@ jobs:
                       "text": {
                         "type": "mrkdwn",
                         "text": ('${{ job.status }}' === 'success' ? ':partydeploy:' : ':warning:') +
-                          ' *service-${{ env.STAGE }}* : Service Deployment ' +
-                          ('${{ job.status }}' === 'success' ? 'was Successful.' : '${{ job.status }}' === 'cancelled' ? 'was Cancelled.' : 'has Failed.')
+                          ' *Deployment ' +
+                          ('${{ job.status }}' === 'success' ? 'Successful.*' : '${{ job.status }}' === 'cancelled' ? 'Cancelled.*' : 'Failed.*')
+                      },
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": `Service: *service--${ process.env.STAGE }*\nCommit: ${process.env.AS_MESSAGE}`
                       },
                       "fields": [
-                        {
-                          "type": "mrkdwn",
-                          "text": `*Commit Message*\n${process.env.AS_MESSAGE}`
-                        },
                         {
                           "type": "mrkdwn",
                           "text": `*Branch*\n${process.env.GITHUB_REF.split('/').slice(2).join('/')}`,
@@ -58,9 +61,6 @@ jobs:
                           "text": `*Author*\n${process.env.AS_AUTHOR}`
                         }
                       ]
-                    },
-                    {
-                      "type": "divider"
                     },
                     {
                       "type": "actions",
@@ -73,7 +73,6 @@ jobs:
                             "emoji": true
                           },
                           "style": '${{ job.status }}' === 'success' ? 'primary' : 'danger',
-                          "value": "click_me_123",
                           "url": `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
                         }
                       ]
