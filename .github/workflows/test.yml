@@ -56,7 +56,7 @@ jobs:
                   "text": "Check Deployment Logs",
                   "type": "button",
                   "style": "danger",
-                  "url": `https://github.com/${{ env.GITHUB_REPOSITORY }}/runs/${{ env.GITHUB_RUN_ID }}`
+                  "url": `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`
                 }]
               }]
             }
