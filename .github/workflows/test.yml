@@ -21,7 +21,7 @@ jobs:
         id: test
         run: |
           yarn test &> test-result.txt
-          echo "TEST_RES=$(cat test-result.txt)" >> $GITHUB_ENV
+          echo "TEST_RES='$(cat test-result.txt)'" >> $GITHUB_ENV
       - name: Add comment
         if: always()
         uses: mshick/add-pr-comment@v1
