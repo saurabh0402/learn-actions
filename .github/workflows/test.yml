@@ -24,11 +24,11 @@ jobs:
           yarn test >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Add comment
-        if: always()
+        if: steps.test.outcome == 'success' || steps.test.outcome == 'failure'
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            I ran the test, here are the results
+            I ran the tests. It was ${{ steps.test.outcome }}. Here are the results:
             ```
             ${{ env.TEST_RES }}
             ```
