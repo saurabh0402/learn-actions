@@ -21,7 +21,7 @@ jobs:
         id: test
         run: |
           yarn test &> test-result.txt
-          echo "::set-output name=testResult::'`cat test-result.txt`'"
+          echo "TEST_RES=$(cat test-result.txt)" >> $GITHUB_ENV
       - name: Add comment
         if: always()
         uses: mshick/add-pr-comment@v1
@@ -29,6 +29,6 @@ jobs:
           message: |
             I ran the test, here are the results
             ```
-            ${{ steps.test.outputs.testResult }}
+            ${{ env.TEST_RES }}
             ```
           repo-token: ${{ secrets.GITHUB_TOKEN }}
