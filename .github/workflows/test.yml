@@ -20,7 +20,9 @@ jobs:
       - name: Run tests
         id: test
         run: |
-          echo "TEST_RES=$(yarn test)" >> $GITHUB_ENV
+          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+          yarn test >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: Add comment
         if: always()
         uses: mshick/add-pr-comment@v1
