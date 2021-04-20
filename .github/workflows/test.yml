@@ -20,8 +20,9 @@ jobs:
       - name: Run tests
         id: test
         run: |
+          yarn test &> test-result.txt
           echo 'TEST_RES<<EOF' >> $GITHUB_ENV
-          yarn test >> $GITHUB_ENV
+          cat test-result.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Add comment
         if: steps.test.outcome == 'success' || steps.test.outcome == 'failure'
