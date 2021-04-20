@@ -21,7 +21,7 @@ jobs:
         id: test
         run: |
           yarn test &> test-result.txt
-          echo "::set-output name=testResult::`cat test-result.txt`"
+          echo "::set-output name=testResult::'`cat test-result.txt`'"
       - name: Add comment
         if: always()
         uses: mshick/add-pr-comment@v1
