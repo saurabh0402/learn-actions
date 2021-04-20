@@ -28,7 +28,9 @@ jobs:
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            I ran the tests. The test ${{ steps.test.outcome == 'success' && 'was Successfull :tada:' || 'Failed :cry:'   }}. Here are the results:
+            I am your beautiful *Test Runner* :elf_man:
+            I ran the tests and found it ${{ steps.test.outcome == 'success' && 'was Successfull :tada:' || 'Failed :cry:'   }}
+            Here are the results:
             ```
             ${{ env.TEST_RES }}
             ```
