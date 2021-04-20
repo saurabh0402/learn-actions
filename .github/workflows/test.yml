@@ -1,26 +1,39 @@
 name: test
 on:
-  workflow_dispatch:
-    inputs:
-      stage:
-        description: 'Stage'
-        required: true
-        default: 'dev'
+  pull_request:
+    branches:
+    - master
+    types:
+    - synchronize
+    - opened
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      STAGE: ${{ github.event.inputs.stage }}
     steps:
       - name: Checkout to Repo
         uses: actions/checkout@v2
-      - name: Set Output
-        id: set_output
-        run: |
-          echo $STAGE
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
           node-version: 14
       - run: yarn install
-      - run: yarn test
+      - name: Run tests
+        id: test
+        run: |
+          yarn test &> test-result.txt
+          echo 'TEST_RES<<EOF' >> $GITHUB_ENV
+          cat test-result.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - name: Add comment
+        if: steps.test.outcome == 'success' || steps.test.outcome == 'failure'
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            I am your beautiful *Test Runner* :elf_man:
+            I ran the tests and found it ${{ steps.test.outcome == 'success' && 'was Successfull :tada:' || 'Failed :cry:'   }}
+            Here are the results:
+            ```
+            ${{ env.TEST_RES }}
+            ```
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          allow-repeats: true
