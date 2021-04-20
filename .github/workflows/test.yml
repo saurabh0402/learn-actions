@@ -21,10 +21,7 @@ jobs:
         id: test
         run: |
           yarn test &> test-result.txt
-          TEST_RES=|
-            ```
-            $(cat test-result.txt)
-            ```
+          TEST_RES=`cat test-result.txt`
           echo "TEST_RES=$TEST_RES" >> $GITHUB_ENV
       - name: Add comment
         if: always()
