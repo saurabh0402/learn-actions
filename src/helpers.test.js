@@ -28,5 +28,5 @@ test('Basic two number different', () => {
   expect(subLeft(5, 3)).toBe(2);
   expect(subLeft(100, 39)).toBe(61);
   expect(subLeft(50, 35)).toBe(15);
-  expect(subLeft()).toBe();
+  expect(subLeft()).toBe(0);
 });
