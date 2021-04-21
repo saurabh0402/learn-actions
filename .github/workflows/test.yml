@@ -22,13 +22,13 @@ jobs:
         run: |
           yarn test &> test-result.txt
       - name: Add Env
-        if: ${{ steps.test.outcome == 'success' || steps.test.outcome == 'failure' }}
+        if: ${{ success() || (failure() && steps.test.outcome == 'failure') }}
         run: |
           echo 'TEST_RES<<EOF' >> $GITHUB_ENV
           cat test-result.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Add comment
-        if: ${{ steps.test.outcome == 'success' || steps.test.outcome == 'failure' }}
+        if: ${{ success() || (failure() && steps.test.outcome == 'failure') }}
         uses: mshick/add-pr-comment@v1
         with:
           message: |
