@@ -42,4 +42,3 @@ jobs:
             ```
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           allow-repeats: true
-          repo-token-user-login: Test-Runner[elf]
