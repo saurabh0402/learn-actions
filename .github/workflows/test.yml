@@ -32,7 +32,7 @@ jobs:
         uses: mshick/add-pr-comment@v1
         with:
           message: |
-            I am your beautiful *Test Runner* :elf_man:
+            I am your beautiful *Test Runner* :elf:
             I ran the tests and found it ${{ steps.test.outcome == 'success' && 'was Successfull :tada:' || 'Failed :cry:'   }}
             Here are the results:
             ```
