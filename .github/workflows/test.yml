@@ -16,20 +16,21 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+          registry-url: https://registry.npmjs.org/
       - run: yarn install
-      - run: exit 1
       - name: Run tests
         id: test
         run: |
           yarn test &> test-result.txt
       - name: Add Env
+        id: add_test_res
         if: ${{ success() || (failure() && steps.test.outcome == 'failure') }}
         run: |
           echo 'TEST_RES<<EOF' >> $GITHUB_ENV
           cat test-result.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Add comment
-        if: ${{ success() || (failure() && steps.test.outcome == 'failure') }}
+        if: ${{ success() || (failure() && steps.test.outcome == 'failure' && steps.add_test_res.outcome == 'success') }}
         uses: mshick/add-pr-comment@v1
         with:
           message: |
