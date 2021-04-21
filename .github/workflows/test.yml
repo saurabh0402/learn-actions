@@ -28,7 +28,9 @@ jobs:
         if: always()
         run: echo ${{ steps.test.outcome }}
       - name: Add comment
-        if: steps.test.outcome == 'success' || steps.test.outcome == 'failure'
+        if: |
+          steps.test.outcome == 'success' ||
+          steps.test.outcome == 'failure'
         uses: mshick/add-pr-comment@v1
         with:
           message: |
