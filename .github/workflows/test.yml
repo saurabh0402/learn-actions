@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 14
       - run: yarn install
+      - run: exit 1
       - name: Run tests
         id: test
         run: |
