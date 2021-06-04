@@ -12,33 +12,11 @@ jobs:
     steps:
       - name: Checkout to Repo
         uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-          registry-url: https://registry.npmjs.org/
-      - run: yarn install
-      - name: Run tests
-        id: test
+      - name: Perform Build
         run: |
-          yarn test &> test-result.txt
-      - name: Add Env
-        id: add_test_res
-        if: ${{ success() || (failure() && steps.test.outcome == 'failure') }}
-        run: |
-          echo 'TEST_RES<<EOF' >> $GITHUB_ENV
-          cat test-result.txt >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-      - name: Add comment
-        if: ${{ success() || (failure() && steps.test.outcome == 'failure' && steps.add_test_res.outcome == 'success') }}
-        uses: mshick/add-pr-comment@v1
+          docker run -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
-          message: |
-            I am your beautiful *Test Runner* :elf:
-            I ran the tests and found it ${{ steps.test.outcome == 'success' && 'was Successfull :tada:' || 'Failed :cry:'   }}
-            Here are the results:
-            ```
-            ${{ env.TEST_RES }}
-            ```
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          allow-repeats: true
+          beanch: gh-pages
+          folder: build
