@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: try-backstage-api
+  description: Just trying Backstage OpenAPI integration
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: platform-studio
+  definiton:
+    $text: ./swagger.json
