@@ -9,6 +9,6 @@ metadata:
     - javascript
 spec:
   type: service
-  lifecycle: production
+  lifecycle: experimental
   owner: platform-studio
   system: try-backstage
