@@ -7,5 +7,5 @@ spec:
   type: openapi
   lifecycle: experimental
   owner: platform-studio
-  definiton:
+  definition:
     $text: ./swagger.json
