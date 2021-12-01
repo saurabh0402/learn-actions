@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: try-backstage
+  annotations:
+    github.com/project-slug: saurabh0402/learn-actions
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - javascript
+spec:
+  type: service
+  lifecycle: production
+  owner: platform-studio
+  system: try-backstage
