@@ -8,4 +8,4 @@ spec:
   lifecycle: experimental
   owner: platform-studio
   definition:
-    $text: ./swagger.json
+    $text: ./docs/apidoc/swagger.json

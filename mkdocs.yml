@@ -1,8 +1,8 @@
 site_name: 'try-backstage-docs'
 
 nav:
-  - Home: index.md
-  - Another Page: another.md
+  - Home: techdocs/index.md
+  - Another Page: techdocs/another.md
 
 plugins:
   - techdocs-core
