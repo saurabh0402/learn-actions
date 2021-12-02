@@ -12,5 +12,3 @@ spec:
   lifecycle: experimental
   owner: platform-studio
   system: try-backstage
-  providesApis:
-    - try-backstage-api

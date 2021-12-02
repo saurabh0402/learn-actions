@@ -1,8 +1,0 @@
-site_name: 'try-backstage-docs'
-
-nav:
-  - Home: techdocs/index.md
-  - Another Page: techdocs/another.md
-
-plugins:
-  - techdocs-core
