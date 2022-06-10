@@ -24,7 +24,7 @@ jobs:
           mkdir /tmp/$BRANCH
           touch /tmp/$BRANCH/index.html
           echo "<h1> Hello World from ${BRANCH}" > /tmp/$BRANCH/index.html
-          git checkout --orphan gh-pages && git rm -rf * && git rm -rf .*
+          git checkout --orphan gh-pages && git rm -rf * .*
           git pull origin gh-pages
           git config --local user.email "scanner@peak.ai"
           git config --local user.name "github-actions[bot]"
