@@ -28,9 +28,8 @@ jobs:
         env:
           BRANCH: ${{ github.head_ref }}
         run: |
-          REMOTE_URL=$(git remote get-url origin)
           mkdir /tmp/gh-pages && cd /tmp/gh-pages
-          git init && git remote add origin $REMOTE_URL
+          git init && git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git checkout -b gh-pages
           git pull origin gh-pages
           git config --local user.email "scanner@peak.ai"
