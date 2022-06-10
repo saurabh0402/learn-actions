@@ -17,14 +17,21 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - name: Create a folder in the gh-pages branch
+      - name: Generate HTML
         env:
           BRANCH: ${{ github.head_ref }}
         run: |
-          mkdir /tmp/$BRANCH
+          mkdir /tmp/$BRANCH 
           touch /tmp/$BRANCH/index.html
           echo "<h1> Hello World from ${BRANCH}" > /tmp/$BRANCH/index.html
-          git checkout --orphan gh-pages && git rm -rf * .*
+      - name: Push Changes
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          REMOTE_URL=$(git remote get-url origin)
+          mkdir /tmp/gh-pages && cd gh-pages
+          git init && git remote add origin $REMOTE_URL
+          git checkout -b gh-pages
           git pull origin gh-pages
           git config --local user.email "scanner@peak.ai"
           git config --local user.name "github-actions[bot]"
