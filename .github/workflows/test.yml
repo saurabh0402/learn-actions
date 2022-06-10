@@ -1,0 +1,35 @@
+name: run test
+on:
+  pull_request:
+    branches:
+    - master
+    types:
+    - synchronize
+    - opened
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to Repo
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - name: Create a folder in the gh-pages branch
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          mkdir /tmp/$BRANCH
+          touch /tmp/$BRANCH/index.html
+          echo "<h1> Hello World from ${BRANCH}" > /tmp/$BRANCH/index.html
+          (git checkout --orphan gh-pages && git rm -rf *) || true
+          (git checkout gh-pages) || true
+          git config --local user.email "scanner@peak.ai"
+          git config --local user.name "github-actions[bot]"
+          rm -rf $BRANCH
+          cp -R /tmp/$BRANCH $BRANCH
+          git add $BRANCH
+          git commit -m "Add file for ${BRANCH}"
+          git push origin gh-pages    
