@@ -27,5 +27,6 @@ jobs:
           echo "<h1> Hello World from ${BRANCH}" > $BRANCH/index.html
           git config --local user.email "scanner@peak.ai"
           git config --local user.name "github-actions[bot]"
+          git add $BRANCH
           git commit -m "Add file for ${BRANCH}"
           git push origin gh-pages    
