@@ -22,13 +22,10 @@ jobs:
           BRANCH: ${{ github.head_ref }}
         run: |
           git checkout -b gh-pages
-          git checkout -b temp
           mkdir $BRANCH
           touch $BRANCH/index.html
           echo "<h1> Hello World from ${BRANCH}" > $BRANCH/index.html
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.3
-        with:
-          branch: gh-pages
-          folder: .
-
+          git config --local user.email "scanner@peak.ai"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Add file for ${BRANCH}"
+          git push origin gh-pages    
